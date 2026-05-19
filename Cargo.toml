@@ -4,6 +4,8 @@ version = "0.1.0"
 edition = "2024"
 links = "jemalloc"
 license = "Apache-2.0"
+repository = "https://github.com/VEY-OSS/libjemalloc-sys.git"
+readme = "README.md"
 
 [dependencies]
 
