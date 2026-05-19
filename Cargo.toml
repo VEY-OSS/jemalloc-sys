@@ -3,6 +3,7 @@ name = "libjemalloc-sys"
 version = "0.1.0"
 edition = "2024"
 links = "jemalloc"
+license = "Apache-2.0"
 
 [dependencies]
 
