@@ -19,7 +19,7 @@ fn main() {
         .header("wrapper.h")
         .rust_edition(RustEdition::Edition2024)
         .default_macro_constant_type(MacroTypeVariation::Signed)
-        .allowlist_file(".*jemalloc.h")
+        .allowlist_file(".*[[:punct:]]jemalloc[[:punct:]]jemalloc\\.h")
         .generate()
         .expect("Unable to generate bindings");
     bindings
