@@ -13,6 +13,8 @@ fn main() {
         println!("cargo:rerun-if-changed={}", dir.display());
         builder = builder.clang_arg(format!("-I{}", dir.display()));
     }
+
+    println!("cargo:rerun-if-changed=wrapper.h");
     let bindings = builder
         .header("wrapper.h")
         .rust_edition(RustEdition::Edition2024)
