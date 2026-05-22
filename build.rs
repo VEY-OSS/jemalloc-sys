@@ -1,7 +1,25 @@
 use std::env;
+use std::fmt::Debug;
 use std::path::PathBuf;
 
+use bindgen::callbacks::{ItemInfo, ItemKind, ParseCallbacks};
 use bindgen::{MacroTypeVariation, RustEdition};
+
+#[derive(Debug)]
+struct ParseCallback;
+
+impl ParseCallbacks for ParseCallback {
+    fn generated_name_override(&self, item_info: ItemInfo<'_>) -> Option<String> {
+        if !matches!(item_info.kind, ItemKind::Function) {
+            return None;
+        }
+
+        item_info
+            .name
+            .strip_prefix("je_")
+            .map(|name| name.to_owned())
+    }
+}
 
 fn main() {
     let out_dir = PathBuf::from(env::var_os("OUT_DIR").unwrap());
@@ -20,6 +38,7 @@ fn main() {
         .rust_edition(RustEdition::Edition2024)
         .default_macro_constant_type(MacroTypeVariation::Signed)
         .allowlist_file(".*[[:punct:]]jemalloc[[:punct:]]jemalloc\\.h")
+        .parse_callbacks(Box::new(ParseCallback))
         .generate()
         .expect("Unable to generate bindings");
     bindings
