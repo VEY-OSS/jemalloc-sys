@@ -34,6 +34,7 @@ fn main() {
 
     println!("cargo:rerun-if-changed=wrapper.h");
     let bindings = builder
+        .use_core()
         .header("wrapper.h")
         .rust_edition(RustEdition::Edition2024)
         .default_macro_constant_type(MacroTypeVariation::Signed)
